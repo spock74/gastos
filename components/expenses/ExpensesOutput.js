@@ -1,77 +1,20 @@
+import { useContext } from "react";
 import ExpensesList from "./ExpensesList";
 import { View, StyleSheet } from "react-native";
 import ExpensesSummary from "./ExpensesSummary";
 import { GlobalStyles } from "../../constants/styles";
 
-const DUMMY_EXPENSES = [
-  {
-    id: "e1",
-    description: "Gás",
-    amount: 100.0,
-    date: new Date("2022-04-15"),
-  },
-  {
-    id: "e2",
-    description: "Par de sapatos",
-    amount: 299.99,
-    date: new Date("2022-01-01"),
-  },
-  {
-    id: "e3",
-    description: "Aluguel",
-    amount: 700.0,
-    date: new Date("2022-04-05"),
-  },
-  {
-    id: "e4",
-    description: "Mercado",
-    amount: 356.7,
-    date: new Date("2022-04-10"),
-  },
-  {
-    id: "e5",
-    description: "Livro",
-    amount: 45.0,
-    date: new Date("2022-03-12"),
-  },
-  {
-    id: "e6",
-    description: "Gás",
-    amount: 100.0,
-    date: new Date("2022-04-25"),
-  },
-  {
-    id: "e7",
-    description: "Par de sapatos",
-    amount: 299.99,
-    date: new Date("2022-01-01"),
-  },
-  {
-    id: "e8",
-    description: "Aluguel",
-    amount: 700.0,
-    date: new Date("2022-04-05"),
-  },
-  {
-    id: "e9",
-    description: "Mercado",
-    amount: 356.7,
-    date: new Date("2022-04-10"),
-  },
-  {
-    id: "e10",
-    description: "Livro",
-    amount: 45.0,
-    date: new Date("2022-03-12"),
-  },
-];
+import { ExpensesContext } from "../../store/expenses-context";
 
 
 function ExpensesOutput({ expenses, expensesPeriod }) {
+
+  const expensesCtx = useContext(ExpensesContext);
+
   return (
     <View style={styles.container}>
-      <ExpensesSummary expenses={DUMMY_EXPENSES} periodName={expensesPeriod} />
-      <ExpensesList expenses={DUMMY_EXPENSES} />
+      <ExpensesSummary expenses={expensesCtx.expenses} periodName={expensesPeriod} />
+      <ExpensesList expenses={expensesCtx.expenses} />
     </View>
   );
 }
