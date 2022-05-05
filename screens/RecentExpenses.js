@@ -6,20 +6,28 @@ import { ExpensesContext } from '../store/expenses-context';
 function RecentExpenses(){  
     const expensesCtx = useContext(ExpensesContext);
 
+    
     function getDateMinusDays(date_, days){
         return new Date( date_.getFullYear(), 
-                         date_.getMonth(), 
-                         date_.getDate() - days);
+        date_.getMonth(), 
+        date_.getDate() - days);
     }
+   
+    // const date = new getDateMinusDays(recentExpenses, 0);
+    // recentExpenses.date = date;
     /// filter for recent expenses
     const recentExpenses = expensesCtx.expenses.filter(expense => {
         const today = new Date();
+
         const sevenDaysAgo= getDateMinusDays(today, 7);
         return expense.date >= sevenDaysAgo;
     });
-      
+    
+    
     return (
-            <ExpensesOutput expenses={recentExpenses} expensesPeriod="Últimos 7 dias" />
+            <ExpensesOutput z={console.log('recente', recentExpenses)} 
+                            expenses={recentExpenses} 
+                            expensesPeriod="Últimos 7 dias" />
     );
 }
 

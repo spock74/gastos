@@ -24,13 +24,23 @@ function ExpensesOverview() {
         navigation.navigate('ManageExpense');
     }
 
+    const navigateToRecentExpensesHandler = () => {
+        navigation.navigate('RecentExpenses');
+    }
+    const navigateToAllExpensesHandler = () => {
+        navigation.navigate('AllExpenses');
+    }
+
     return (
       <BottomTabs.Navigator screenOptions={{
         headerStyle: {height: 80, backgroundColor: GlobalStyles.colors.primary500},  
         headerTintColor: '#fff',
         tabBarStyle: {backgroundColor: GlobalStyles.colors.primary500},
         tabBarActiveTintColor: GlobalStyles.colors.accent500,
-        headerRight:({tintColor}) => <IconButton name="md-add-circle" color={GlobalStyles.colors.primary50} size={36}  onPress={navigateToManageExpenseHandler}/>,
+        headerRight:({tintColor}) => <IconButton name="md-add-circle" 
+                                                color={GlobalStyles.colors.primary50} 
+                                                size={36}  
+                                                onPress={navigateToManageExpenseHandler}/>,
       }}>
         <BottomTabs.Screen 
           name="RecentExpenses"
@@ -38,7 +48,11 @@ function ExpensesOverview() {
           options={{
             title: "Gastos Recentes",
             tabBarLabel: "Recentes",
-            tabBarIcon: ({color, size}) => <Ionicons name="hourglass" size={size} color={color} />
+            tabBarIcon: ({color, size}) => <Ionicons 
+                                            name="hourglass" 
+                                            size={size} 
+                                            color={color} 
+                                            onPress={navigateToRecentExpensesHandler} />
           }}/>
         <BottomTabs.Screen 
           name="AllExpenses" 
@@ -46,7 +60,11 @@ function ExpensesOverview() {
           options={{
             title: "Todos os Gastos",
             tabBarLabel: "Todos",
-            tabBarIcon: ({color, size}) => <Ionicons name="calendar" size={size} color={color} />
+            tabBarIcon: ({color, size}) => <Ionicons 
+                                            name="calendar" 
+                                            size={size} 
+                                            color={color} 
+                                            onPress={navigateToAllExpensesHandler}/>
           }}/>
       </BottomTabs.Navigator>
     );

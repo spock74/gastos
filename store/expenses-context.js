@@ -1,79 +1,34 @@
 import { createContext, useReducer } from "react";
+import "react-native-get-random-values";
+import { v4 as uuidv4 } from "uuid";
 
 const DUMMY_EXPENSES = [
     {
       id: "e1",
       description: "Gás",
       amount: 100.0,
-      date: new Date("2022-04-15"),
+      date: new Date("2022-05-05"),
     },
     {
       id: "e2",
       description: "Par de sapatos",
       amount: 299.99,
-      date: new Date("2022-01-01"),
+      date: new Date("2021-02-02"),
     },
-    {
-      id: "e3",
-      description: "Aluguel",
-      amount: 700.0,
-      date: new Date("2022-04-05"),
-    },
-    {
-      id: "e4",
-      description: "Mercado",
-      amount: 356.7,
-      date: new Date("2022-04-10"),
-    },
-    {
-      id: "e5",
-      description: "Livro",
-      amount: 45.0,
-      date: new Date("2022-03-12"),
-    },
-    {
-      id: "e6",
-      description: "Gás",
-      amount: 100.0,
-      date: new Date("2022-04-25"),
-    },
-    {
-      id: "e7",
-      description: "Par de sapatos",
-      amount: 299.99,
-      date: new Date("2022-01-01"),
-    },
-    {
-      id: "e8",
-      description: "Aluguel",
-      amount: 700.0,
-      date: new Date("2022-04-05"),
-    },
-    {
-      id: "e9",
-      description: "Mercado",
-      amount: 356.7,
-      date: new Date("2022-04-10"),
-    },
-    {
-      id: "e10",
-      description: "Livro",
-      amount: 45.0,
-      date: new Date("2022-03-12"),
-    },
+
   ];
 
 export const ExpensesContext = createContext({
   expenses: [],
   addExpense: ({ description, amount, date }) => {},
   deleteExpense: (id) => {},
-  updadeExpense: (id, { description, amount, date }) => {},
+  updateExpense: (id, { description, amount, date }) => {},
 });
 
 function expensesReducer(state, action) {
   switch (action.type) {
     case "ADD_EXPENSE":
-        const id = create_UUID();
+        const id = uuidv4();
       return [...state, {...action.payload, id: id}];
     
     case "DELETE_EXPENSE":  
@@ -105,7 +60,7 @@ function ExpensesContextProvider({ children }) {
     dispatch({ type: "DELETE_EXPENSE", payload: id });
   }
 
-  function updateExpense(id, updates) {
+  function updateExpense(id, expensesData) {
     dispatch({
       type: "UPDATE_EXPENSE",
       payload: { id: id, data: expensesData },
@@ -121,7 +76,7 @@ function ExpensesContextProvider({ children }) {
   };
 
 
-  return <ExpensesContext.Provider value={value}>{children}</ExpensesContext.Provider>;
+  return <ExpensesContext.Provider  value={value}>{children}</ExpensesContext.Provider>;
 } 
  
 export default ExpensesContextProvider;

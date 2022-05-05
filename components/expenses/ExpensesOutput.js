@@ -13,8 +13,8 @@ function ExpensesOutput({ expenses, expensesPeriod }) {
 
   return (
     <View style={styles.container}>
-      <ExpensesSummary expenses={expensesCtx.expenses} periodName={expensesPeriod} />
-      <ExpensesList expenses={expensesCtx.expenses} />
+      <ExpensesSummary expenses={expenses} periodName={expensesPeriod} />
+      <ExpensesList expenses={expenses} />
     </View>
   );
 }
@@ -28,5 +28,6 @@ const styles = StyleSheet.create({
     backgroundColor: GlobalStyles.colors.primary700,
   },
 });
+
 
 export default ExpensesOutput;
