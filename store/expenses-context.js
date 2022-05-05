@@ -47,7 +47,7 @@ function expensesReducer(state, action) {
     default:
       return state;
   }
-}
+} 
 
 function ExpensesContextProvider({ children }) {
   const [expensesState, dispatch] = useReducer(expensesReducer, DUMMY_EXPENSES);

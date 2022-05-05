@@ -9,7 +9,12 @@ function AllExpenses() {
 
 
   return ( 
-      <ExpensesOutput expenses={expensesCtx.expenses} expensesPeriod="total" />
+      <ExpensesOutput 
+        expenses={expensesCtx.expenses} 
+        expensesPeriod="total" 
+        fallbackText="Nenhum gasto registrado."/>
+        
+
   );
 }
 

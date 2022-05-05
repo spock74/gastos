@@ -5,6 +5,7 @@ import IconButton from "../UI/IconButton";
 import Ebutton from "../UI/Ebutton";
 import { useContext } from "react";
 import {ExpensesContext} from '../store/expenses-context';
+import ExpenseForm from "../components/ManageExpense/ExpenseForm";
 
 
 function ManageExpenses({ route, navigation }) {
@@ -30,30 +31,26 @@ function ManageExpenses({ route, navigation }) {
   }
  
   function cancelHandler(){
-
     navigation.goBack();
   }; 
 
-  function confirmHandler(){
-    const temp_ = {
-      description: "test",
-      amount: 19.99,
-      date: new Date(),
-    }
+  function confirmHandler(expenseData){
     if(isEditing){
-      expensesCtx.updateExpense(editedExpenseId, temp_);
+      expensesCtx.updateExpense(editedExpenseId, expenseData);
     }else{
-      expensesCtx.addExpense(temp_);
+      expensesCtx.addExpense(expenseData);
     }
     navigation.goBack();
   };
 
   return (
     <View style={styles.container}>
-      <View style={styles.buttons}>
-        <Ebutton style={styles.button} mode="flat" onPress={cancelHandler}>Cancelar</Ebutton>
-        <Ebutton style={styles.button} onPress={confirmHandler}>{isEditing ? 'Editar' :  'Adicionar'}</Ebutton>
-      </View>
+        <ExpenseForm submitButtonLabel={isEditing ? 'Editar' : 'Adsicionar'} 
+                     onSubmit={confirmHandler}
+                     onCancel={cancelHandler} />
+        
+        
+
       {isEditing && (
         <View style={styles.deleteContainer}>
           <IconButton

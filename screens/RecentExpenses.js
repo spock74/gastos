@@ -27,7 +27,8 @@ function RecentExpenses(){
     return (
             <ExpensesOutput z={console.log('recente', recentExpenses)} 
                             expenses={recentExpenses} 
-                            expensesPeriod="Últimos 7 dias" />
+                            expensesPeriod="Últimos 7 dias" 
+                            fallbackText="Nenhum gasto registrado nos últimos 7 dias."/>
     );
 }
 
