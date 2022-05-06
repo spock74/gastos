@@ -4,17 +4,23 @@ import { GlobalStyles } from "../constants/styles";
 import IconButton from "../UI/IconButton";
 import Ebutton from "../UI/Ebutton";
 import { useContext } from "react";
-import {ExpensesContext} from '../store/expenses-context';
+import { ExpensesContext } from "../store/expenses-context";
 import ExpenseForm from "../components/ManageExpense/ExpenseForm";
 
-
 function ManageExpenses({ route, navigation }) {
-  const expensesCtx = useContext(ExpensesContext)
-
-
+  const expensesCtx = useContext(ExpensesContext);
 
   const editedExpenseId = route.params?.expenseId;
   const isEditing = !!editedExpenseId;
+
+  const selectedExpense = expensesCtx.expenses.find(
+    (expense) => expense.id === editedExpenseId
+  );
+
+  if (isEditing && !selectedExpense) {
+    console.log("expense not found", editedExpenseId);
+    console.log("expense not found", expense);
+  }
 
   useLayoutEffect(() => {
     navigation.setOptions({
@@ -29,27 +35,29 @@ function ManageExpenses({ route, navigation }) {
     expensesCtx.deleteExpense(editedExpenseId);
     navigation.goBack();
   }
- 
-  function cancelHandler(){
-    navigation.goBack();
-  }; 
 
-  function confirmHandler(expenseData){
-    if(isEditing){
+  function cancelHandler() {
+    navigation.goBack();
+  }
+
+  function confirmHandler(expenseData) {
+    // console.log("kkkkk", expenseData);
+    if (isEditing) {
       expensesCtx.updateExpense(editedExpenseId, expenseData);
-    }else{
+    } else {
       expensesCtx.addExpense(expenseData);
     }
     navigation.goBack();
-  };
+  }
 
   return (
     <View style={styles.container}>
-        <ExpenseForm submitButtonLabel={isEditing ? 'Editar' : 'Adsicionar'} 
-                     onSubmit={confirmHandler}
-                     onCancel={cancelHandler} />
-        
-        
+      <ExpenseForm
+        submitButtonLabel={isEditing ? "Editar" : "Adicionar!!"}
+        onSubmit={confirmHandler}
+        onCancel={cancelHandler}
+        defaultValues={selectedExpense}
+      />
 
       {isEditing && (
         <View style={styles.deleteContainer}>
@@ -78,14 +86,14 @@ const styles = StyleSheet.create({
     borderTopColor: GlobalStyles.colors.primary200,
     alignItems: "center",
   },
-  button:{
-    minWidth:120,
+  button: {
+    minWidth: 120,
     marginHorizontal: 16,
   },
-  buttons:{
-      flexDirection: 'row',
-      justifyContent: 'center',
-      alignItems: 'center',
+  buttons: {
+    flexDirection: "row",
+    justifyContent: "center",
+    alignItems: "center",
   },
 });
 
